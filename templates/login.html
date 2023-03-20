@@ -1,0 +1,42 @@
+{% extends "secondary_form.html" %}
+
+{% block content %}
+    <form action="" method="post">
+        <div class="card-body p-5 text-center">
+              <div class="mb-md-5 mt-md-4 pb-5">
+                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                <p class="text-white-50 mb-5">Please enter your login and password!</p>
+                <div class="form-outline form-white mb-4">
+                    <p>
+        {{ form.email(class="form-control form-control-lg", type="email", id="typeEmailX") }}<br>
+        {% for error in form.email.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+                  <label class="form-label" for="typeEmailX" style="margin-left: 0px;">Email</label>
+                <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 40px;"></div><div class="form-notch-trailing"></div></div></div>
+                <div class="form-outline form-white mb-4">
+                    <p>
+        {{ form.password(class="form-control form-control-lg", type="password", id="typePasswordX") }}<br>
+        {% for error in form.password.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+                  <label class="form-label" for="typePasswordX" style="margin-left: 0px;">Password</label>
+                    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        <div>{{ message }}</div>
+                <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 64px;"></div><div class="form-notch-trailing"></div></div></div>
+                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
+                <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+              </div>
+              <div>
+                <p class="mb-0">Don't have an account? <a href="/register" class="text-white-50 fw-bold">Register</a></p>
+              </div>
+            </div>
+    </form>
+{% endblock %}
