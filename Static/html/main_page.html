@@ -7,16 +7,37 @@
         <meta property="og:title" content="Представляем Вам Морскую оборону">
         <meta property="og:type" content="website">
         <link rel="icon" href="../Image/Icon.ico" type="Image/x-icon">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/main_page.css">
     </head>
     <body>
         <header>
-            <nav class="navbar">
-                <a href="">Информация</a>
-                <a href="">Галерея</a>
-                <a href="">Отзывы</a>
-                <img src="../Image/Icon.ico" alt="Наш логотип" class="logo" width="40" height="40">
-            </nav>
+            <nav class="navbar navbar-expand-lg bg-light rounded navbar-color" aria-label="Twelfth navbar example">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+      <img src="../Image/Icon.ico" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+    </a>
+        <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link link-color" aria-current="page" href="/">Главная</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link link-color" href="/gallery">Галерея</a>
+            </li>
+              <li class="nav-item">
+              <a class="nav-link link-color" href="/reviews">Отзывы</a>
+            </li>
+          </ul>
+        </div>
+          <div class="d-lg-flex justify-content-lg-end">
+            <button class="btn btn-primary login" >Login</button>
+          </div>
+          <div class="d-lg-flex justify-content-lg-end">
+            <button class="btn btn-primary register" >Register</button>
+          </div>
+      </div>
+    </nav>
         </header>
         <main class="container">
             <h1>Хьюстон</h1>
@@ -703,11 +724,18 @@
             <li>Басра (Ирак)</li>
         </ul>
         </main>
-        <aside>
-            Боковая колонка (сайдбар)
-        </aside>
-        <footer>
-            Подвал
-        </footer>
+        <footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary">
+  <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
+    <div class="container-fluid">
+      <p>Данная программа создана Кривошей Юрием и Оберемок Дмитрием, на неё дествуют все законы Российской Федерации, защищающие авторские права.
+         <br> Свои вопросы и предложения вы можете написать на почтовый адрес: PS-4-2015@yandex.ru с помощью своей почты Или перейдя по <a href="/mail">данной ссылке</a>.</p>
+        <div class="d-lg-flex justify-content-lg-end">
+        <a class="navbar-brand " href="#">
+      <img src="../Image/Icon.ico" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+    </a>
+        </div>
+    </div>
+  </div>
+</footer>
     </body>
 </html>

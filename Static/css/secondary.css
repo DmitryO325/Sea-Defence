@@ -1,0 +1,18 @@
+.gradient-custom {
+          background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+        }
+
+.full_size {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.centered {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
