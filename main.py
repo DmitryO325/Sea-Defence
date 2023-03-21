@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired
 from data import db_session
 from data.db_session import global_init
 from data.db_session import create_session
-from flask import Flask, redirect, render_template
+from flask import Flask, redirect, render_template, url_for
 from flask_login import LoginManager
 from data.login_form import LoginForm
 
@@ -13,10 +13,10 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 
-
 @app.route('/')
+@app.route('/index')
 def index():
-    render_template('main_page.html')
+    return render_template('main_page.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
