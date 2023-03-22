@@ -2,8 +2,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
 from data import db_session
-from data.db_session import global_init
-from data.db_session import create_session
+from data import users
+from data.users import User
 from flask import Flask, redirect, render_template, url_for
 from flask_login import LoginManager
 from data.login_form import LoginForm
@@ -12,6 +12,8 @@ from data.register_form import RegisterForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+
+db_session.global_init("db/users.db")
 
 
 @app.route('/')
@@ -36,7 +38,7 @@ def login():
 
 
 @app.route('/register', methods=['GET', 'POST'])
-def reqister():
+def register():
     form = RegisterForm()
     # if form.validate_on_submit():
     #     if form.password.data != form.password_again.data:
