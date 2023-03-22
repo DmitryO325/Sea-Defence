@@ -5,8 +5,8 @@
 <form action="" method="post">
     <div class="card-body p-5 text-center">
               <div class="mb-md-5 mt-md-4 pb-5">
-                <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
-                <p class="text-white-50 mb-5">Please enter some data about yourself!</p>
+                <h2 class="fw-bold mb-2 text-uppercase">Регистрация</h2>
+                <p class="text-white-50 mb-5">Пожалуйста, введите свои данные!</p>
                 <div class="form-outline form-white mb-4">
                     <p>
         {{ form.email(class="form-control form-control-lg", type="email", id="typeEmailX") }}
@@ -15,7 +15,7 @@
                 {{ error }}
             </p>
         {% endfor %}
-        <label class="form-label" for="typeEmailX" style="margin-left: 0px;">Email</label>
+        <label class="form-label" for="typeEmailX" style="margin-left: 0px;">Электронная почта</label>
     </p>
                     </div>
                     <div class="form-outline form-white mb-4">
@@ -26,7 +26,7 @@
                 {{ error }}
             </p>
         {% endfor %}
-        <label class="form-label" for="typePasswordX" style="margin-left: 0px;">name</label>
+        <label class="form-label" for="typePasswordX" style="margin-left: 0px;">Имя</label>
     </p>
                     </div>
                     <div class="form-outline form-white mb-4">
@@ -37,7 +37,7 @@
                 {{ error }}
             </p>
         {% endfor %}
-        <label class="form-label" for="typePasswordX" style="margin-left: 0px;">surname</label>
+        <label class="form-label" for="typePasswordX" style="margin-left: 0px;">Фамилия</label>
     </p>
                     </div>
                 <div class="form-outline form-white mb-4">
@@ -48,7 +48,7 @@
                 {{ error }}
             </p>
         {% endfor %}
-        <label class="form-label" for="typePasswordX" style="margin-left: 0px;">Password</label>
+        <label class="form-label" for="typePasswordX" style="margin-left: 0px;">Пароль</label>
     </p>
               </div>
                     <div class="form-outline form-white mb-4">
@@ -59,12 +59,12 @@
                 {{ error }}
             </p>
         {% endfor %}
-        <label class="form-label" for="typePasswordX" style="margin-left: 0px;">password again</label>
+        <label class="form-label" for="typePasswordX" style="margin-left: 0px;">Повторите пароль</label>
     </p>
-                        <button class="btn btn-outline-light btn-lg px-5" type="submit">Register</button>
+                        <button class="btn btn-outline-light btn-lg px-5" type="submit">Зарегистрироваться</button>
                     </div>
                   <div>
-                <p class="mb-0">Already have an account? <a href="/login" class="text-white-50 fw-bold">Login</a></p>
+                <p class="mb-0">Уже есть аккаунт? <a href="/login" class="text-white-50 fw-bold">Войти</a></p>
               </div>
             </div>
     </div>

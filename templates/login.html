@@ -4,8 +4,8 @@
     <form action="" method="post">
         <div class="card-body p-5 text-center">
               <div class="mb-md-5 mt-md-4 pb-5">
-                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                <p class="text-white-50 mb-5">Please enter your email and password!</p>
+                <h2 class="fw-bold mb-2 text-uppercase">Войти</h2>
+                <p class="text-white-50 mb-5">Пожалуйста, введите свой логин или электронную почту!</p>
                 <div class="form-outline form-white mb-4">
                     <p>
         {{ form.email(class="form-control form-control-lg", type="email", id="typeEmailX") }}
@@ -14,7 +14,7 @@
                 {{ error }}
             </p>
         {% endfor %}
-        <label class="form-label" for="typeEmailX" style="margin-left: 0px;">Email</label>
+        <label class="form-label" for="typeEmailX" style="margin-left: 0px;">Электронная почта</label>
     </p>
                 <div class="form-outline form-white mb-4">
                     <p>
@@ -24,14 +24,16 @@
                 {{ error }}
             </p>
         {% endfor %}
-        <label class="form-label" for="typePasswordX" style="margin-left: 0px;">Password</label>
+        <label class="form-label" for="typePasswordX" style="margin-left: 0px;">Пароль</label>
     </p>
-                    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
-                <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                    <p>{{ form.remember_me() }}
+                    <label for="remember_me">Запомнить меня</label></p>
+                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Забыли пароль?</a></p>
+                <button class="btn btn-outline-light btn-lg px-5" type="submit">Войти</button>
               </div>
               <div>
-                <p class="mb-0">Don't have an account? <a href="/register" class="text-white-50 fw-bold">Register</a></p>
+                <p class="mb-0">Нет аккаунта?
+                    <a href="/register" class="text-white-50 fw-bold">Зарегистрироваться</a></p>
               </div>
             </div>
     </form>
