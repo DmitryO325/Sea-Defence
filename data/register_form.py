@@ -4,9 +4,9 @@ from wtforms.validators import DataRequired
 
 
 class RegisterForm(FlaskForm):
-    email = EmailField('Login/email', validators=[DataRequired()])
-    name = StringField('Name', validators=[DataRequired()])
-    surname = StringField('Surname', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    password_again = PasswordField('Repeat password', validators=[DataRequired()])
+    email = EmailField(validators=[DataRequired()])
+    name = StringField(validators=[DataRequired()])
+    surname = StringField(validators=[DataRequired()])
+    password = PasswordField(validators=[DataRequired()])
+    password_again = PasswordField(validators=[DataRequired()])
     submit = SubmitField('Зарегистрироваться')

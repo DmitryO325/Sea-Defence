@@ -1,6 +1,4 @@
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired
+from data.db_session import create_session
 from data import db_session
 from data import users
 from data.users import User
@@ -8,17 +6,32 @@ from flask import Flask, redirect, render_template, url_for
 from flask_login import LoginManager
 from data.login_form import LoginForm
 from data.register_form import RegisterForm
-from flask_login import login_user
+from flask_login import login_user, login_required, logout_user
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 db_session.global_init("db/users.db")
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+@login_manager.user_loader
+def load_user(user_id):  # Функция для получения пользователя
+    db_sess = db_session.create_session()
+    return db_sess.query(User).get(user_id)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")
+
 
 
 @app.route('/')
-@app.route('/index')
 def index():
     return render_template('main_page.html')
 
@@ -26,19 +39,15 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    print(form.password.data, form.email, form.submit.data)
-    print(form.validate_on_submit())
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             return redirect("/")
-        print('1')
         return render_template('login.html',
                                message="Неправильный логин или пароль",
                                form=form)
-    print('0')
     return render_template('login.html', form=form)
 
 

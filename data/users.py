@@ -11,7 +11,7 @@ class User(SqlAlchemyBase):
     email = sqlalchemy.Column(sqlalchemy.String, unique=True, nullable=False)
     name = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     surname = sqlalchemy.Column(sqlalchemy.String, nullable=False)
-    hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    password = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     registration_data = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now())
 
     def set_password(self, password):
