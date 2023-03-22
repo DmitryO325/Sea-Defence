@@ -9,4 +9,4 @@ class RegisterForm(FlaskForm):
     surname = StringField('Surname', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     password_again = PasswordField('Repeat password', validators=[DataRequired()])
-    submit = SubmitField('Sign up')
+    submit = SubmitField('Зарегистрироваться')

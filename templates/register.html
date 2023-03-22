@@ -61,7 +61,7 @@
         {% endfor %}
         <label class="form-label" for="typePasswordX" style="margin-left: 0px;">Повторите пароль</label>
     </p>
-                        <button class="btn btn-outline-light btn-lg px-5" type="submit">Зарегистрироваться</button>
+                        <p> {{ form.submit(class="btn btn-outline-light btn-lg px-5", type="submit", text="") }}</p>
                     </div>
                   <div>
                 <p class="mb-0">Уже есть аккаунт? <a href="/login" class="text-white-50 fw-bold">Войти</a></p>
