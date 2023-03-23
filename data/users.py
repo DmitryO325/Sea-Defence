@@ -14,8 +14,8 @@ class User(SqlAlchemyBase):
     password = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     registration_data = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now())
 
-    def set_password(self, password):
-        self.hashed_password = generate_password_hash(password)
+    def set_password(self, password1):
+        self.password = generate_password_hash(password1)
 
-    def check_password(self, password):
-        return check_password_hash(self.hashed_password, password)
+    def check_password(self, password1):
+        return check_password_hash(self.password, password1)
