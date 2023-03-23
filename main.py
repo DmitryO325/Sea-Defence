@@ -30,7 +30,6 @@ def logout():
     return redirect("/")
 
 
-
 @app.route('/')
 def index():
     return render_template('main_page.html')
@@ -71,6 +70,23 @@ def register():
         db_sess.commit()
         return redirect('/login')
     return render_template('register.html', form=form)
+
+
+@app.route('/gallery')
+def gallery():
+    pass
+
+
+@app.route('/reviews')
+@login_required
+def reviews():
+    pass
+
+
+@app.route('/mail', methods=['GET', 'POST'])
+@login_required
+def mail():
+    pass
 
 
 if __name__ == '__main__':
