@@ -41,10 +41,23 @@ background-color: #0c075e !important;}
 
 .login
 {
-width: 100px;
+width: 200px;
+}
+
+
+.login:hover
+{
+width: 200px;
+background: darkgreen;
 }
 
 .register
 {
 width: 200px;
+}
+
+.register:hover
+{
+width: 200px;
+background: darkred;
 }

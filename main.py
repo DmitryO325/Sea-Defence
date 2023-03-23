@@ -1,17 +1,16 @@
-from data.db_session import create_session
+from flask.cli import load_dotenv
 from data import db_session
-from data import users
 from data.users import User
-from flask import Flask, redirect, render_template, url_for
+from flask import Flask, redirect, render_template
 from flask_login import LoginManager
 from data.login_form import LoginForm
 from data.register_form import RegisterForm
 from flask_login import login_user, login_required, logout_user
-
+from python.mail_sender import send_mail
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
-
+load_dotenv()
 db_session.global_init("db/users.db")
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -83,13 +82,17 @@ def reviews():
     pass
 
 
-@app.route('/mail', methods=['GET', 'POST'])
+@app.route('/mail', methods=['GET'])
 @login_required
 def mail():
+    render_template('mail.html')
+
+
+@app.route('/mail', methods=['POST'])
+@login_required
+def post_form():
     pass
 
 
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1')
-
-
