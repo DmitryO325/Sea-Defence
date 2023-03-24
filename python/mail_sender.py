@@ -19,10 +19,11 @@ def send_mail(email, subject, text, attachments):
     body = text
     message.attach(MIMEText(body, 'plain'))
     process_attachments(message, attachments)
-    server = smtplib.SMTP_SSL(os.getenv('HOST'), os.getenv('PORT'))
+    server = smtplib.SMTP_SSL(os.getenv('HOST'), os.getenv("PORT"))
     server.login(address, password)
     server.send_message(message)
     server.quit()
+    return True
 
 
 def process_attachments(msg, attachments):

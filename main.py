@@ -1,10 +1,11 @@
-from flask.cli import load_dotenv
+from dotenv import load_dotenv
 from data import db_session
 from data.users import User
 from flask import Flask, redirect, render_template
 from flask_login import LoginManager
 from data.login_form import LoginForm
 from data.register_form import RegisterForm
+from data.mail_form import MailForm
 from flask_login import login_user, login_required, logout_user
 from python.mail_sender import send_mail
 
@@ -82,16 +83,21 @@ def reviews():
     pass
 
 
-@app.route('/mail', methods=['GET'])
+@app.route('/mail', methods=['GET', 'POST'])
 @login_required
 def mail():
-    render_template('mail.html')
+    form = MailForm()
+    if form.validate_on_submit():
+        print(form.topic.data, form.mail.data, form.attachments.data)
+        send_mail('PS-4-2015@yandex.ru', form.topic.data, form.mail.data,
+                  attachments=form.attachments.data)
+        return redirect('/')
+    return render_template('mail.html', form=form)
 
 
-@app.route('/mail', methods=['POST'])
-@login_required
-def post_form():
-    pass
+@app.errorhandler(401)
+def error_401(error):
+    return redirect('/login')
 
 
 if __name__ == '__main__':
