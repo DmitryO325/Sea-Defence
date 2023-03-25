@@ -13,6 +13,7 @@ class User(SqlAlchemyBase):
     surname = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     password = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     registration_data = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now())
+    is_active = sqlalchemy.Column(sqlalchemy.Boolean, nullable=False)
 
     def set_password(self, password1):
         self.password = generate_password_hash(password1)

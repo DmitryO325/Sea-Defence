@@ -100,5 +100,12 @@ def error_401(error):
     return redirect('/login')
 
 
+@app.errorhandler(500)
+def error_500(error):
+    return render_template('error500.html', message='Возникла непредвиденная ошибка, '
+                                                    'но она в скором времени будет устранена. '
+                                                    'Пожалуйста, перейдите на главную страницу')
+
+
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1')
