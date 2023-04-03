@@ -1,16 +1,19 @@
+import flask
 from dotenv import load_dotenv
 from data import db_session
 from data.users import User
 from flask import Flask, redirect, render_template
-from flask_login import LoginManager
 from data.login_form import LoginForm
 from data.register_form import RegisterForm
 from data.mail_form import MailForm
-from flask_login import login_user, login_required, logout_user
+from flask_login import LoginManager, login_required, logout_user
+from flask_login import login_user
 from python.mail_sender import send_mail
+from flask import send_from_directory
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+app.config['Data'] = 'data'
 load_dotenv()
 db_session.global_init("db/users.db")
 login_manager = LoginManager()
@@ -43,6 +46,7 @@ def login():
         user = db_sess.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
+            print('ok')
             return redirect("/")
         return render_template('login.html',
                                message="Неправильный логин или пароль",
@@ -83,6 +87,11 @@ def reviews():
     pass
 
 
+@app.route('/download')
+def download():
+    return send_from_directory(app.config['a'], 'game.zip', as_attachment=True)
+
+
 @app.route('/mail', methods=['GET', 'POST'])
 @login_required
 def mail():
@@ -101,9 +110,15 @@ def error_401(error):
 
 
 @app.errorhandler(500)
-def error_500(error):
-    return render_template('error500.html', message='Возникла непредвиденная ошибка, '
+@app.errorhandler(404)
+def error_handler(error):
+    if error.code == 500:
+        return render_template('error.html', message='Возникла непредвиденная ошибка, '
                                                     'но она в скором времени будет устранена. '
+                                                    'Пожалуйста, перейдите на главную страницу')
+    if error.code == 404:
+        return render_template('error.html', message='К сожалению, данной страницы не существует, '
+                                                    'но, возможно, ее добавят в будущем. '
                                                     'Пожалуйста, перейдите на главную страницу')
 
 

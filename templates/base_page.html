@@ -31,12 +31,21 @@
             </li>
           </ul>
         </div>
+          {% if current_user.is_authenticated %}
+          <div class="d-lg-flex justify-content-lg-end">
+            <a class="btn btn-primary login" href="/logout">Выйти</a>
+          </div>
+          <div class="d-lg-flex justify-content-lg-end">
+            <a class="btn btn-primary register" href="/download">Скачать игру</a>
+          </div>
+          {% else %}
           <div class="d-lg-flex justify-content-lg-end">
             <a class="btn btn-primary login" href="/login">Войти</a>
           </div>
           <div class="d-lg-flex justify-content-lg-end">
             <a class="btn btn-primary register" href="/register">Зарегистрироваться</a>
           </div>
+          {% endif %}
       </div>
     </nav>
         </header>
