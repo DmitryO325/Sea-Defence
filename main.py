@@ -1,8 +1,8 @@
 from dotenv import load_dotenv
+
+import data.comment_resource
 from data import db_session
 from data.users import User
-from data.mails import Mail
-from data.comments import Comment
 from flask import Flask, redirect, render_template
 from data.login_form import LoginForm
 from data.register_form import RegisterForm
@@ -10,11 +10,14 @@ from data.mail_form import MailForm
 from flask_login import LoginManager, login_required, logout_user
 from flask_login import login_user
 from python.mail_sender import send_mail
-from flask import send_from_directory
-
+from flask import send_from_directory, jsonify
+from flask_restful import reqparse, abort, Api, Resource
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 app.config['Data'] = 'data'
+api = Api(app)
+api.add_resource(data.comment_resource.CommentsListResource, '/api/comments')
+api.add_resource(data.comment_resource.CommentsResource, '/api/comments/<int:comment_id>')
 load_dotenv()
 db_session.global_init("db/data_base.db")
 login_manager = LoginManager()
@@ -90,7 +93,7 @@ def reviews():
 
 @app.route('/download')
 def download():
-    return send_from_directory(app.config['data'], 'game.zip', as_attachment=True)
+    return send_from_directory(app.config['Data'], 'game.zip', as_attachment=True)
 
 
 @app.route('/mail', methods=['GET', 'POST'])
@@ -118,7 +121,7 @@ def error_handler(error):
                                                      'но она в скором времени будет устранена. '
                                                      'Пожалуйста, перейдите на главную страницу')
     if error.code == 404:
-        return render_template('error.html', message='К сожалению, данной страницы не существует, '
+        return render_template('error.html', message='К сожалению, данного материала не существует, '
                                                      'но, возможно, ее добавят в будущем. '
                                                      'Пожалуйста, перейдите на главную страницу')
 
