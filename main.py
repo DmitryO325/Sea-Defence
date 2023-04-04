@@ -1,7 +1,8 @@
-import flask
 from dotenv import load_dotenv
 from data import db_session
 from data.users import User
+from data.mails import Mail
+from data.comments import Comment
 from flask import Flask, redirect, render_template
 from data.login_form import LoginForm
 from data.register_form import RegisterForm
@@ -15,7 +16,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 app.config['Data'] = 'data'
 load_dotenv()
-db_session.global_init("db/users.db")
+db_session.global_init("db/data_base.db")
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -89,7 +90,7 @@ def reviews():
 
 @app.route('/download')
 def download():
-    return send_from_directory(app.config['a'], 'game.zip', as_attachment=True)
+    return send_from_directory(app.config['data'], 'game.zip', as_attachment=True)
 
 
 @app.route('/mail', methods=['GET', 'POST'])
@@ -114,12 +115,12 @@ def error_401(error):
 def error_handler(error):
     if error.code == 500:
         return render_template('error.html', message='Возникла непредвиденная ошибка, '
-                                                    'но она в скором времени будет устранена. '
-                                                    'Пожалуйста, перейдите на главную страницу')
+                                                     'но она в скором времени будет устранена. '
+                                                     'Пожалуйста, перейдите на главную страницу')
     if error.code == 404:
         return render_template('error.html', message='К сожалению, данной страницы не существует, '
-                                                    'но, возможно, ее добавят в будущем. '
-                                                    'Пожалуйста, перейдите на главную страницу')
+                                                     'но, возможно, ее добавят в будущем. '
+                                                     'Пожалуйста, перейдите на главную страницу')
 
 
 if __name__ == '__main__':
