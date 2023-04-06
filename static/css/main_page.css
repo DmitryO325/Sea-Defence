@@ -69,3 +69,14 @@ display: flex;
     align-items: center;
     font-size: 80px;
 }
+
+@keyframes spin {
+    100% {
+    transform: rotate(360deg);
+    }
+}
+
+
+.logo:hover {
+animation: spin 2s infinite;
+}
