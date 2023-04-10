@@ -1,9 +1,14 @@
+import os
+
+import flask
 from dotenv import load_dotenv
+from werkzeug.datastructures import FileStorage
+from werkzeug.utils import secure_filename
 
 import data.comment_resource
 from data import db_session
 from data.users import User
-from flask import Flask, redirect, render_template
+from flask import Flask, redirect, render_template, request
 from data.login_form import LoginForm
 from data.register_form import RegisterForm
 from data.mail_form import MailForm
@@ -16,6 +21,7 @@ from flask_restful import reqparse, abort, Api, Resource
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 app.config['Data'] = 'data'
+app.config['UPLOAD_FOLDER'] = 'uploads'
 api = Api(app)
 api.add_resource(data.comment_resource.CommentsListResource, '/api/comments')
 api.add_resource(data.comment_resource.CommentsResource, '/api/comments/<int:comment_id>')
@@ -51,7 +57,6 @@ def login():
         user = db_sess.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
-            print('ok')
             return redirect("/")
         return render_template('login.html',
                                message="Неправильный логин или пароль",
@@ -102,9 +107,14 @@ def download():
 def mail():
     form = MailForm()
     if form.validate_on_submit():
-        print(form.topic.data, form.mail.data, form.attachments.data)
+        attachments = []
+        files = request.files.getlist(form.attachments.name)
+        for file in files:
+            file_name = secure_filename(file.filename)
+            attachments.append(file_name)
+            file.save(f'{app.config["UPLOAD_FOLDER"]}/{file_name}')
         send_mail('PS-4-2015@yandex.ru', form.topic.data, form.mail.data,
-                  attachments=form.attachments.data)
+                  attachments=attachments)
         return redirect('/')
     return render_template('mail.html', form=form)
 
