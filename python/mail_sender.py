@@ -28,12 +28,15 @@ def send_mail(email, subject, text, attachments):
 
 def process_attachments(msg, attachments):
     for file in attachments:
-        if os.path.isfile(file):
-            attach_file(msg, file)
-        elif os.path.exists(file):
-            dir = os.listdir(file)
+        print(file)
+        path = 'uploads/' + file
+        if os.path.isfile(path):
+            attach_file(msg, path)
+            os.remove(path)
+        elif os.path.exists(path):
+            dir = os.listdir(path)
             for attached_file in dir:
-                attach_file(msg, file + '/' + attached_file)
+                attach_file(msg, path + '/' + attached_file)
 
 
 def attach_file(msg, file):
