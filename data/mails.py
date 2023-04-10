@@ -15,4 +15,3 @@ class Mail(SqlAlchemyBase, SerializerMixin):
     attachments = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     send_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now())
     user = orm.relationship("User")
-

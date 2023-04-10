@@ -1,13 +1,16 @@
-body {background-color: #000080;
+body {
+background-color: #000080;
 color: gold;
 margin: 0;
-font-size: 25px;}
+font-size: 25px;
+}
 
 .navbar-color {
 background-color: #0055ff !important;
 border: 3px solid yellow;
 position: fixed;
 width: 100%;
+z-index: 1
 }
 
 

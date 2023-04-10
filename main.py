@@ -12,6 +12,7 @@ from flask_login import login_user
 from python.mail_sender import send_mail
 from flask import send_from_directory, jsonify
 from flask_restful import reqparse, abort, Api, Resource
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 app.config['Data'] = 'data'
@@ -82,13 +83,13 @@ def register():
 
 @app.route('/gallery')
 def gallery():
-    pass
+    return render_template('gallery.html')
 
 
 @app.route('/reviews')
 @login_required
 def reviews():
-    pass
+    return render_template('reviews.html')
 
 
 @app.route('/download')
