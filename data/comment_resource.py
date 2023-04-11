@@ -4,6 +4,7 @@ from flask_restful import Resource, abort
 from .comments import Comment
 from data import db_session
 from data.parser import comment_parser
+from data.users import User
 
 
 def abort_if_comments_not_found(comment_id):
@@ -45,4 +46,16 @@ class CommentsListResource(Resource):
         db_sess.commit()
         return jsonify({'result': 'success'})
 
+
+class UserCommentsResource(Resource):
+    def get(self, user_name):
+        db_sess = db_session.create_session()
+        for user in db_sess.query(User):
+            if User.surname + ' ' + User.name == user_name:
+                id = user.id
+                break
+        if id:
+            comments = db_sess.query(Comment).get({'user_id': id})
+            return jsonify({'comments': [item.to_dict(only=('id', 'content', 'user_id', 'send_date'))
+                                         for item in comments]})
 
