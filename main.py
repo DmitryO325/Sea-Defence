@@ -4,7 +4,7 @@ import flask
 from dotenv import load_dotenv
 from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
-
+from data.mails import Mail
 import data.comment_resource
 from data import db_session
 from data.users import User
@@ -13,7 +13,7 @@ from data.login_form import LoginForm
 from data.register_form import RegisterForm
 from data.mail_form import MailForm
 from flask_login import LoginManager, login_required, logout_user
-from flask_login import login_user
+from flask_login import login_user, current_user
 from python.mail_sender import send_mail
 from flask import send_from_directory, jsonify
 from flask_restful import reqparse, abort, Api, Resource
@@ -115,6 +115,14 @@ def mail():
             file.save(f'{app.config["UPLOAD_FOLDER"]}/{file_name}')
         send_mail('PS-4-2015@yandex.ru', form.topic.data, form.mail.data,
                   attachments=attachments)
+        email = Mail()
+        email.topic = form.topic.data
+        email.attachments = ', '.join(attachments)
+        email.user_id = current_user.id
+        email.content = form.mail.data
+        session = db_session.create_session()
+        session.add(email)
+        session.commit()
         return redirect('/')
     return render_template('mail.html', form=form)
 
