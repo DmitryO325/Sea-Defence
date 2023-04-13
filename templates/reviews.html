@@ -4,5 +4,15 @@
 
 {% block content %}
 <br>
+{% for review in reviews %}
+    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%"
+         data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
+        <h4>{{ review. name }}</h4>
+        <h4 id="scrollspyHeading1">{{ review. topic }}</h4>
+        <p>{{ review. review }}</p>
+        <h6>{{ review. send_date }} </h6>
+    </div>
+    <br>
+{% endfor %}
 <a href="/reviews/write">Написать отзыв</a>
 {% endblock %}

@@ -37,7 +37,7 @@ login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):  # Функция для получения пользователя
     db_sess = db_session.create_session()
-    return db_sess.query(User).get(user_id)
+    return db_sess.get(User, user_id)
 
 
 @app.route('/logout')
@@ -82,6 +82,7 @@ def register():
                                    message="Пароли не совпадают")
 
         db_sess = db_session.create_session()
+
         if db_sess.query(User).filter(User.email == form.email.data).first():
             return render_template('register.html', title='Регистрация',
                                    form=form,
@@ -109,7 +110,16 @@ def gallery():
 @app.route('/reviews')
 @login_required
 def reviews():
-    return render_template('reviews.html')
+    session = db_session.create_session()
+    db_reviews = session.query(Review).all()
+
+    for i in range(len(db_reviews)):
+        user = load_user(db_reviews[i].user_id)
+
+        db_reviews[i].send_date = db_reviews[i].send_date.strftime('%d.%m.%Y %H:%M:%S')
+        db_reviews[i].name = user.name + ' ' + user.surname
+
+    return render_template('reviews.html', reviews=db_reviews)
 
 
 @app.route('/reviews/write', methods=['GET', 'POST'])
