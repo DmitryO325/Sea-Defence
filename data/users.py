@@ -17,7 +17,7 @@ class User(SqlAlchemyBase, UserMixin):
     password = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     registration_data = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now())
 
-    comments = orm.relationship("Comment", back_populates='user')
+    reviews = orm.relationship("Review", back_populates='user')
     mails = orm.relationship("Mail", back_populates='user')
 
     def set_password(self, password1):

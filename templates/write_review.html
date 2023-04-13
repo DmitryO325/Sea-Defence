@@ -1,0 +1,21 @@
+{% extends "base_page.html" %}
+
+{% block title %}Напишите отзыв{% endblock %}
+
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data">
+    <br>
+    {{ form.csrf_token() }}
+    <div class="input-group mb-3">
+        {{ form.topic(class="form-control", id="typePasswordX", type="text", placeholder="Тема отзыва") }}
+    </div>
+    <div class="input-group mb-3">
+        {{ form.review(class="form-control", id="typePasswordX", type="text",
+           rows="10", placeholder="Напишите отзыв") }}
+    </div>
+    <div class="input-group mb-3">
+        {{ form.attachments(class="form-control", type="file") }}
+    </div>
+    {{ form.submit(class="btn btn-primary", type="submit") }}
+</form>
+{% endblock %}
