@@ -33,6 +33,9 @@
           </ul>
         </div>
           {% if current_user.is_authenticated %}
+          <div class="account">
+            <a>{{user. name}} {{user. surname}}</a>
+          </div>
           <div class="d-lg-flex justify-content-lg-end">
             <a class="btn btn-primary login" href="/logout">Выйти</a>
           </div>

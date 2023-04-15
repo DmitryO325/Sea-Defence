@@ -1,4 +1,28 @@
-body
-{
+main {
 color: black;
+}
+
+.write {
+display: block;
+margin: 0 auto;
+width: 20%;
+text-align: center;
+background-color: #ff7070;
+color: black;
+font-size: 16pt;
+}
+
+.write:hover {
+background-color: yellow;
+color: black;
+}
+
+.write:focus {
+background-color: #ff5c5c !important;
+color: black !important;
+}
+
+.write:active {
+background-color: green !important;
+color: black !important;
 }

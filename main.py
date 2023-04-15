@@ -40,6 +40,11 @@ def load_user(user_id):  # Функция для получения пользо
     return db_sess.get(User, user_id)
 
 
+def render_template_with_user(html, **kwargs):
+    user_online = load_user(current_user.id) if current_user.is_authenticated else None
+    return render_template(html, user=user_online, **kwargs)
+
+
 @app.route('/logout')
 @login_required
 def logout():
@@ -49,7 +54,7 @@ def logout():
 
 @app.route('/')
 def index():
-    return render_template('main_page.html')
+    return render_template_with_user('main_page.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -104,7 +109,7 @@ def register():
 
 @app.route('/gallery')
 def gallery():
-    return render_template('gallery.html')
+    return render_template_with_user('gallery.html')
 
 
 @app.route('/reviews')
@@ -119,7 +124,7 @@ def reviews():
         db_reviews[i].send_date = db_reviews[i].send_date.strftime('%d.%m.%Y %H:%M:%S')
         db_reviews[i].name = user.name + ' ' + user.surname
 
-    return render_template('reviews.html', reviews=db_reviews)
+    return render_template_with_user('reviews.html', reviews=db_reviews)
 
 
 @app.route('/reviews/write', methods=['GET', 'POST'])
@@ -142,7 +147,7 @@ def write_review():
 
         return redirect('/reviews')
 
-    return render_template('write_review.html', form=form)
+    return render_template_with_user('write_review.html', form=form)
 
 
 @app.route('/download')

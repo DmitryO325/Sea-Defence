@@ -13,7 +13,6 @@ width: 100%;
 z-index: 1
 }
 
-
 .link-color {
 color: gold;
 font-size: 25px;
@@ -24,53 +23,54 @@ color: yellow !important;
 font-size: 30px;
 }
 
+main {
+padding: 80px;
+}
 
-main {padding: 80px;}
-
-
-.login {background-color: green;
+.login {
+background-color: green;
 margin-right: 40px;
-width: 100px;}
+margin-left: 80px;
+width: 100px;
+}
 
 .register {
 width: 100px;
 background-color: purple;
 }
 
-
 .footer-color {
-background-color: #0c075e !important;}
+background-color: #0c075e !important;
+}
 
-.silver {color: silver;}
+.silver {
+color: silver;
+}
 
-.login
-{
+.login {
 width: 200px;
 }
 
 
-.login:hover
-{
+.login:hover {
 width: 200px;
 background: darkgreen;
 }
 
-.register
-{
+.register {
 width: 200px;
 }
 
-.register:hover
-{
+.register:hover {
 width: 200px;
 background: darkred;
 }
 
 h1 {
 display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 80px;
+justify-content: center;
+align-items: center;
+font-size: 80px;
 }
 
 @keyframes spin {
@@ -79,7 +79,12 @@ display: flex;
     }
 }
 
-
 .logo:hover {
 animation: spin 2s infinite;
+}
+
+.account {
+color: #baffc6;
+font-style: italic;
+font-family: cursive
 }
