@@ -1,9 +1,10 @@
 import datetime
-import os
-
-import flask
+from data.captchas import Captcha
+import random
+from data.captcha_input import CaptchaForm
+from data.email_form import EmailForm
 from dotenv import load_dotenv
-from werkzeug.datastructures import FileStorage
+from python.password_generator import generate_password
 from werkzeug.utils import secure_filename
 from data.mails import Mail
 from data.reviews import Review
@@ -105,6 +106,54 @@ def register():
         return redirect('/login')
 
     return render_template('register.html', form=form)
+
+
+@app.route('/password_recover', methods=['GET', 'POST'])
+def password_recovery():
+    form = EmailForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        if not db_sess.query(User).filter(User.email == form.email.data).first():
+            return render_template('email.html', title='Восстановление пароля',
+                                   form=form,
+                                   message="Пользователя с такой эл.почтой нет!")
+        captcha_code = random.randint(100000, 1000000)
+        send_mail(form.email.data, 'Восстановление пароля', 'На сайте "Морская оборона" был сделан запрос '
+                                                            'на восстановление пароля. Если это были не Вы, '
+                                                            'удалите данное письмо. \n'
+                                                            f'Код: {captcha_code}', attachments=[])
+        captcha = Captcha()
+        captcha.code = captcha_code
+        captcha.user_email = form.email.data
+        db_sess.add(captcha)
+        db_sess.commit()
+        return redirect('/captcha_input')
+    return render_template('email.html', form=form)
+
+
+@app.route('/captcha_input', methods=['GET', 'POST'])
+def captcha_input():
+    form = CaptchaForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        captcha = db_sess.query(Captcha).filter(Captcha.user_email == form.email.data,
+                                                Captcha.is_activated == 0)[-1]
+        if captcha:
+            if captcha.code == form.captcha.data:
+                user = db_sess.query(User).filter(User.email == form.email.data).first()
+                new_password = generate_password(8)
+                user.set_password(new_password)
+                send_mail(form.email.data, 'Восстановление пароля', f'Новый пароль: {new_password}', attachments=[])
+                captcha.is_activated = True
+                db_sess.commit()
+                return redirect('/login')
+            else:
+                render_template('captcha.html', form=form, message='Код не соответствует')
+        else:
+            return render_template('captcha.html', form=form, message='Код уже активирован или ошибка в эл.почте')
+
+        return redirect('/captcha_input')
+    return render_template('captcha.html', form=form)
 
 
 @app.route('/gallery')

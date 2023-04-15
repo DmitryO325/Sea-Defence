@@ -5,6 +5,7 @@ from .db_session import SqlAlchemyBase
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import orm
 from .mails import Mail  # ВАЖНО!!!!
+from .captchas import Captcha
 
 
 class User(SqlAlchemyBase, UserMixin):
@@ -19,6 +20,7 @@ class User(SqlAlchemyBase, UserMixin):
 
     reviews = orm.relationship("Review", back_populates='user')
     mails = orm.relationship("Mail", back_populates='user')
+    captchas = orm.relationship("Captcha", back_populates='email')
 
     def set_password(self, password1):
         self.password = generate_password_hash(password1)
