@@ -1,8 +1,11 @@
 body {
-background-color: #000080;
-color: gold;
-margin: 0;
-font-size: 25px;
+    background-color: #000080;
+    color: gold;
+    margin: 0;
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .navbar-color {
@@ -14,77 +17,83 @@ z-index: 1
 }
 
 .link-color {
-color: gold;
-font-size: 25px;
+    color: gold;
+    font-size: 25px;
 }
 
 .link-color:hover {
-color: yellow !important;
-font-size: 30px;
+    color: yellow !important;
+    font-size: 30px;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 
 main {
-padding: 80px;
+    padding: 80px;
+    flex: auto;
+    z-index: 1;
 }
 
 .login {
-background-color: green;
-margin-right: 40px;
-margin-left: 80px;
-width: 100px;
+    background-color: green;
+    margin-right: 40px;
+    width: 100px;
 }
 
 .register {
-width: 100px;
-background-color: purple;
+    width: 100px;
+    background-color: purple;
 }
 
 .footer-color {
-background-color: #0c075e !important;
+    background-color: #0c075e !important;
 }
 
 .silver {
-color: silver;
+    color: silver;
 }
 
 .login {
-width: 200px;
+    width: 200px;
 }
 
-
 .login:hover {
-width: 200px;
-background: darkgreen;
+    width: 200px;
+    background: darkgreen;
 }
 
 .register {
-width: 200px;
+    width: 200px;
 }
 
 .register:hover {
-width: 200px;
-background: darkred;
+    width: 200px;
+    background: darkred;
 }
 
 h1 {
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 80px;
 }
 
 @keyframes spin {
     100% {
-    transform: rotate(360deg);
+        transform: rotate(360deg);
     }
 }
 
 .logo:hover {
-animation: spin 2s infinite;
+    animation: spin 2s infinite;
 }
 
 .account {
-color: #baffc6;
-font-style: italic;
-font-family: cursive
+    color: #baffc6;
+    font-style: italic;
+    font-family: cursive
 }
