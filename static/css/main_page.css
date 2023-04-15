@@ -41,6 +41,7 @@ main {
 .login {
     background-color: green;
     margin-right: 40px;
+    margin-left: 80px;
     width: 100px;
 }
 
