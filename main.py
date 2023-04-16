@@ -162,7 +162,6 @@ def gallery():
 
 
 @app.route('/reviews')
-@login_required
 def reviews():
     session = db_session.create_session()
     db_reviews = session.query(Review).all()
@@ -177,7 +176,7 @@ def reviews():
 
 
 @app.route('/reviews/write', methods=['GET', 'POST'])
-def write_review():
+def write_review(topic='', review=''):
     form = ReviewForm()
 
     if form.validate_on_submit():
@@ -196,7 +195,13 @@ def write_review():
 
         return redirect('/reviews')
 
-    return render_template_with_user('write_review.html', form=form)
+    return render_template_with_user('write_review.html', form=form, topic=topic, review=review)
+
+
+@app.route('/reviews/edit', methods=['GET', 'POST'])
+def edit_review():
+    return render_template_with_user('write_review.html')
+
 
 
 @app.route('/download')
@@ -249,7 +254,7 @@ def error_handler(error):
                                                      'Пожалуйста, перейдите на главную страницу')
     if error.code == 404:
         return render_template('error.html', message='К сожалению, данного материала не существует, '
-                                                     'но, возможно, ее добавят в будущем. '
+                                                     'но, возможно, её добавят в будущем. '
                                                      'Пожалуйста, перейдите на главную страницу')
 
 
