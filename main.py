@@ -113,10 +113,12 @@ def password_recovery():
     form = EmailForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
+
         if not db_sess.query(User).filter(User.email == form.email.data).first():
             return render_template('email.html', title='Восстановление пароля',
                                    form=form,
                                    message="Пользователя с такой эл.почтой нет!")
+
         captcha_code = random.randint(100000, 1000000)
         send_mail(form.email.data, 'Восстановление пароля', 'На сайте "Морская оборона" был сделан запрос '
                                                             'на восстановление пароля. Если это были не Вы, '
@@ -128,6 +130,7 @@ def password_recovery():
         db_sess.add(captcha)
         db_sess.commit()
         return redirect('/captcha_input')
+
     return render_template('email.html', form=form)
 
 
@@ -138,6 +141,7 @@ def captcha_input():
         db_sess = db_session.create_session()
         captcha = db_sess.query(Captcha).filter(Captcha.user_email == form.email.data,
                                                 Captcha.is_activated == 0)[-1]
+
         if captcha:
             if captcha.code == form.captcha.data:
                 user = db_sess.query(User).filter(User.email == form.email.data).first()
@@ -147,8 +151,10 @@ def captcha_input():
                 captcha.is_activated = True
                 db_sess.commit()
                 return redirect('/login')
+
             else:
                 render_template('captcha.html', form=form, message='Код не соответствует')
+
         else:
             return render_template('captcha.html', form=form, message='Код уже активирован или ошибка в эл.почте')
 
