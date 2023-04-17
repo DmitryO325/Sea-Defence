@@ -184,9 +184,9 @@ def write_review(review_id=0):
         review = Review()
 
     else:
-        review = session.query(Review).get(review_id)
-        form.topic.data = review.topic
-        form.text.data = review.text
+        review = session.get(Review, review_id)
+        form.topic.data = review.topic if not form.topic.data else form.topic.data
+        form.text.data = review.text if not form.text.data else form.text.data
 
     if form.validate_on_submit():
         review.user_id = current_user.id
@@ -194,7 +194,6 @@ def write_review(review_id=0):
         review.text = form.text.data
         review.send_date = datetime.datetime.now() if not review_id else review.send_date
 
-        # session.query(Review).filter(Review.id == review_id).update({"topic": review.topic, "text": review.text})
         session.add(review)
         session.commit()
 
@@ -212,7 +211,7 @@ def edit_review(review_id):
 def delete_review(review_id):
     session = db_session.create_session()
 
-    review = session.query(Review).filter(Review.id == review_id).one()
+    review = session.query(Review).filter(Review.id == review_id).first()
     session.delete(review)
     session.commit()
 
