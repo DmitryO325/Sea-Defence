@@ -12,15 +12,15 @@
      data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
     <h4>{{ review. name }}</h4>
     <h4 id="scrollspyHeading1">{{ review. topic }}</h4>
-    <p>{{ review. review }}</p>
+    <p>{{ review. text }}</p>
     <h6>{{ review. send_date }}</h6>
     {% if user. is_authenticated and review. user_id == user. id %}
-    <a href="/">
+    <a href="/reviews/delete/{{review. id}}">
         <img src="https://e7.pngegg.com/pngimages/509/800/png-clipart-door-organization-tick-cross-angle-logo.png"
              width="40" height="30"></a>
-    <a href="/reviews/edit/{{review. id}}">
-        <img src="https://w7.pngwing.com/pngs/356/632/png-transparent-computer-icons-pencil-symbol-pencil-pencil-black-objects.png"
-             width="40" height="30"></a>
+<!--    <a href="/reviews/edit/{{review. id}}">-->
+<!--        <img src="https://w7.pngwing.com/pngs/356/632/png-transparent-computer-icons-pencil-symbol-pencil-pencil-black-objects.png"-->
+<!--             width="40" height="30"></a>-->
     {% endif %}
 </div>
 {% endfor %}

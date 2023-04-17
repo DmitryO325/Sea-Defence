@@ -22,7 +22,7 @@ class ReviewsResource(Resource):
         reviews = session.query(Review).get(review_id)
 
         return jsonify({'news': reviews.to_dict(
-            only=('id', 'user_id', 'topic', 'review', 'send_date'))})
+            only=('id', 'user_id', 'topic', 'text', 'send_date'))})
 
     def delete(self, review_id):
         abort_if_reviews_not_found(review_id)
@@ -39,7 +39,7 @@ class ReviewsListResource(Resource):
         db_sess = db_session.create_session()
         reviews = db_sess.query(Review).all()
 
-        return jsonify({'reviews': [item.to_dict(only=('id', 'user_id', 'topic', 'review', 'send_date'))
+        return jsonify({'reviews': [item.to_dict(only=('id', 'user_id', 'topic', 'text', 'send_date'))
                                     for item in reviews]})
 
     def post(self):
@@ -49,7 +49,7 @@ class ReviewsListResource(Resource):
         review = Review()
         review.user_id = args['user_id']
         review.topic = args['topic']
-        review.review = args['review']
+        review.text = args['text']
         review.send_date = args['send_date']
 
         db_sess.add(review)
@@ -69,7 +69,7 @@ class UserReviewsResource(Resource):
                 break
         if user_id:
             reviews = db_sess.query(Review).get({'user_id': user_id})
-            return jsonify({'reviews': [item.to_dict(only=('id', 'topic', 'review', 'user_id', 'send_date'))
+            return jsonify({'reviews': [item.to_dict(only=('id', 'topic', 'text', 'user_id', 'send_date'))
                                         for item in reviews]})
 
 # Этот весь код помечен как Димин, по факту это Юрин код с моими небольшими изменениями

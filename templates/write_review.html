@@ -7,11 +7,12 @@
     <br>
     {{ form.csrf_token() }}
     <div class="input-group mb-3">
-        {{ form.topic(class="form-control", id="typePasswordX", type="text", placeholder="Тема отзыва", value="12334") }}
+        {{ form.topic(class="form-control", id="typePasswordX", type="text",
+        placeholder="Тема отзыва") }}
     </div>
     <div class="input-group mb-3">
-        {{ form.review(class="form-control", id="typePasswordX", type="text",
-           rows="10", placeholder="Напишите отзыв") }}
+        {{ form.text(class="form-control", id="typePasswordX", type="text",
+        rows="10", placeholder="Напишите отзыв")}}
     </div>
     {{ form.submit(class="btn btn-primary", type="submit") }}
 </form>

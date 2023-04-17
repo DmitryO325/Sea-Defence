@@ -176,32 +176,47 @@ def reviews():
 
 
 @app.route('/reviews/write', methods=['GET', 'POST'])
-def write_review(topic='', review=''):
+def write_review(review_id=0):
     form = ReviewForm()
+    session = db_session.create_session()
+
+    if not review_id:
+        review = Review()
+
+    else:
+        review = session.query(Review).get(review_id)
+        form.topic.data = review.topic
+        form.text.data = review.text
 
     if form.validate_on_submit():
-        attachments = []
-
-        review = Review()
         review.user_id = current_user.id
         review.topic = form.topic.data
-        review.review = form.review.data
-        review.attachments = ', '.join(attachments)
-        review.send_date = datetime.datetime.now()
+        review.text = form.text.data
+        review.send_date = datetime.datetime.now() if not review_id else review.send_date
 
-        session = db_session.create_session()
+        # session.query(Review).filter(Review.id == review_id).update({"topic": review.topic, "text": review.text})
         session.add(review)
         session.commit()
 
         return redirect('/reviews')
 
-    return render_template_with_user('write_review.html', form=form, topic=topic, review=review)
+    return render_template_with_user('write_review.html', form=form)
 
 
-@app.route('/reviews/edit', methods=['GET', 'POST'])
-def edit_review():
-    return render_template_with_user('write_review.html')
+@app.route(f'/reviews/edit/<review_id>', methods=['GET', 'POST'])
+def edit_review(review_id):
+    return write_review(review_id=review_id)
 
+
+@app.route(f'/reviews/delete/<review_id>', methods=['GET', 'POST'])
+def delete_review(review_id):
+    session = db_session.create_session()
+
+    review = session.query(Review).filter(Review.id == review_id).one()
+    session.delete(review)
+    session.commit()
+
+    return redirect('/reviews')
 
 
 @app.route('/download')
