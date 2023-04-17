@@ -226,7 +226,7 @@ def delete_review(review_id):
 
 @app.route('/download')
 def download():
-    return send_from_directory(app.config['Data'], 'game.zip', as_attachment=True)
+    return redirect('https://disk.yandex.ru/d/oNwEMJk9FqZB4g')
 
 
 @app.route('/mail', methods=['GET', 'POST'])
